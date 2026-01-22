@@ -1,0 +1,6 @@
+routes??
+job portalll
+ naukrii .com'
+ user-> post resumee  login post .signu post resukt get ,prigile.get,
+ admin{hr} post job,edit,delete,user resume get,profle,post accept or reject ,
+ user get-> profile, post
