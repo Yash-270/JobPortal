@@ -47,8 +47,7 @@ router.get("/list", optjwt, async (req, res) => {
       user = await User.findById(req.user.id);
     }
 
-    // 🔐 ROLE BASED FILTER
-    // 🔐 ROLE BASED FILTER
+
   if (req.user && user && user.role === "Recruiter") {
     filter.recruiter = req.user.id;
   }
@@ -58,24 +57,24 @@ router.get("/list", optjwt, async (req, res) => {
   }
 
 
-    // 💰 Salary filter
+    
     if (minSalary || maxSalary) {
       filter.salary = {};
       if (minSalary) filter.salary.$gte = Number(minSalary);
       if (maxSalary) filter.salary.$lte = Number(maxSalary);
     }
 
-    // 🎯 Job type
+   
     if (jobType) {
       filter.jobType = { $in: jobType.split(",") };
     }
 
-    // 📍 Location
+   
     if (location) {
       filter.location = location;
     }
 
-    // 🔍 Search
+    
     if (search) {
       filter.$or = [
         { title: { $regex: search, $options: "i" } },
@@ -84,13 +83,13 @@ router.get("/list", optjwt, async (req, res) => {
       ];
     }
 
-    // ↕ Sorting
+  
     let sortOption = { createdAt: -1 };
     if (sort === "oldest") sortOption = { createdAt: 1 };
     if (sort === "salary_asc") sortOption = { salary: 1 };
     if (sort === "salary_desc") sortOption = { salary: -1 };
 
-    // 🔥 Redis cache key (ROLE SAFE)
+ 
     const role = user?.role || "guest";
     const userId = req.user?.id || "public";
 
@@ -156,7 +155,7 @@ router.put("/:id",jwtAutMidd,async(req,res)=>{
           return res.status(404).json({ message: "Job not found" });
         }
         const user=await User.findById(req.user.id);
-    // 🔒 2️⃣ Recruiter ownership check
+   
         if (
           user.role === "Recruiter" &&
           job.recruiter.toString() !== req.user.id
@@ -194,7 +193,7 @@ router.delete("/:id",jwtAutMidd,async(req,res)=>{
         }
 
         const user=await User.findById(req.user.id);
-    // 🔒 2️⃣ Recruiter ownership check
+
         if (
           user.role === "Recruiter" &&
           job.recruiter.toString() !== req.user.id
