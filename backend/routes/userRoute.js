@@ -85,7 +85,7 @@ router.get('/profile',jwtAutMidd,async (req, res)=>{
                     address: user.profile.address,
                     skills: user.profile.skills,
                     experience: user.profile.experience,
-                    resumeUrl: resumeSignedUrl   // 👈 Cloudinary URL yahin se jaayega
+                    resumeUrl: resumeSignedUrl   
                 }
             };
 
@@ -129,7 +129,7 @@ router.post('/recover-password',async (req,res)=>{
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
     user.otp = otp;
-    user.otpExpire = Date.now() + 10 * 60 * 1000; // 10 min
+    user.otpExpire = Date.now() + 10 * 60 * 1000; 
     await user.save();
 
     await transporter.sendMail({
@@ -217,7 +217,7 @@ router.put("/profile/update",jwtAutMidd,upload.single("resume"),async (req, res)
         updateData["profile.experience"] = req.body.experience;
 
       if (req.file) {
-        updateData["profile.resumeUrl"] = req.file.filename; // cloudinary url
+        updateData["profile.resumeUrl"] = req.file.filename; 
       }
 
       const user = await User.findByIdAndUpdate(
@@ -234,25 +234,6 @@ router.put("/profile/update",jwtAutMidd,upload.single("resume"),async (req, res)
     }
 });
 
-
-
-// router.put("/profile/update", jwtAutMidd, async (req, res) => {
-//     try{
-//         const { phone, address, skills, experience,resumeUrl } = req.body;
-//         const id=req.user.id;
-//         const user = await User.findByIdAndUpdate(id,
-
-//         {
-//         "profile.phone": phone,
-//         "profile.address": address,
-//         "profile.skills": skills,
-//         "profile.experience": experience,
-//         "profile.resumeUrl":resumeUrl
-//         },
-//         { new: true }
-//     );
-//         res.status(200).json({Message: "Profile Updated"});
-//     }
     
 
 
