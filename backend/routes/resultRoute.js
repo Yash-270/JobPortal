@@ -91,7 +91,7 @@ router.put("/edit/:id", jwtAutMidd, async (req, res) => {
       console.log("📧 SENDING MAIL TO:", result.candidate.email);
 
       await transporter.sendMail({
-      from: '"Job Portal" <no-reply@jobportal.com>', // 👈 ADD THIS
+      from: '"Job Portal" <no-reply@jobportal.com>', 
       to: result.candidate.email,
       subject: "Job Application Update",
       text: `Hello ${result.candidate.name},
@@ -122,7 +122,7 @@ router.get("/recruiter",jwtAutMidd,async(req,res)=>{
     const results = await Result.find()
       .populate({
         path: "job",
-        match: { recruiter: req.user.id }, // 🔥 MAIN FILTER
+        match: { recruiter: req.user.id }, 
         select: "title jobType salary"
       })
       .populate("candidate", "name email profile");
