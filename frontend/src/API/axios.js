@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000"
+  baseURL: "https://jobportal-1-4ej8.onrender.com"
 });
 
 // Token auto attach
