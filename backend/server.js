@@ -1,7 +1,7 @@
 require("dotenv").config(); 
 const express=require("express");
 const cors=require("cors");
- const db=require("./db");
+const db=require("./db");
  
 const app=express();
 
@@ -23,7 +23,7 @@ const adminRoute=require("./routes/adminRoute");
 app.use("/admin",adminRoute);
 console.log(typeof userRoute, typeof jobRoute, typeof resultRoute);
 
-const PORT=process.env.PORT || 4000;
+const PORT=process.env.PORT;
 app.listen(PORT,()=>{
     console.log("Port is Running");
 })
